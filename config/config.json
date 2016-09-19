@@ -16,10 +16,10 @@
         "port": 8183,
         "timeout": 10000,
         "parse_delay": 5000,
-        "user_agent": "PhearBot/0.4.1 - http://phear.io",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36",
         "max_connections": 10,
-        "get_requests": false,
-        "get_cookies": false
+        "get_requests": true,
+        "get_cookies": true
       }
     },
     "production": {
@@ -43,11 +43,11 @@
         "port": 8183,
         "timeout": 10000,
         "parse_delay": 5000,
-        "user_agent": "PhearBot/0.4.1 - http://phear.io",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36",
         "max_connections": 10,
         "allowed_clients": ["127.0.0.1"],
-        "get_requests": false,
-        "get_cookies": false
+        "get_requests": true,
+        "get_cookies": true
       }
     }
   }

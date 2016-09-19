@@ -78,6 +78,7 @@ fetch_url = (url, response, this_inst, parse_delay, request_headers, get_request
   final_url = url # store a final URL for redirects
   headers = {} # store response headers
   requests = [] # store requests made
+  redirects = [] # store redirects made
   had_js_errors = false # know if there were any JS errors
 
   # We keep the completion status, because callback is called twice by PhantomJS (?)
@@ -87,6 +88,8 @@ fetch_url = (url, response, this_inst, parse_delay, request_headers, get_request
   page_inst = page.create()
   page_inst.settings.userAgent = config.user_agent
   page_inst.settings.resourceTimeout = config.timeout
+  page_inst.settings.loadImages = false;
+  page_inst.settings.webSecurityEnabled = false;
   page_inst.customHeaders = request_headers
 
   # Create page-specific cookie jar
@@ -98,7 +101,14 @@ fetch_url = (url, response, this_inst, parse_delay, request_headers, get_request
   # Remember what the actual URL is we are served.
   page_inst.onUrlChanged = (targetUrl) ->
     logger.info this_inst, "Redirected to #{targetUrl}"
+    redirects.push(targetUrl)
     final_url = targetUrl
+
+  page_inst.onNavigationRequested = (targetUrl, type, willNavigate, main)  ->
+    if targetUrl is not url and targetUrl is not 'about:blank' and willNavigate is true and main is true
+      logger.info this_inst, "Redirected to #{targetUrl} via page.onNavigationRequested"
+      redirects.push(targetUrl)
+      final_url = targetUrl
 
   # Remember the headers at the end of the request. For everything that is
   # received this callback is triggered, so only store if the URL is final.
@@ -182,12 +192,13 @@ fetch_url = (url, response, this_inst, parse_delay, request_headers, get_request
           success: true
           input_url: url
           final_url: final_url
+          redirects: redirects
           request_headers: request_headers
           response_headers: fetch_url_headers
           requests: requests if get_requests in ["true", "1"]
           cookies: cookie_inst.cookies if get_cookies in ["true", "1"]
           had_js_errors: had_js_errors
-          content: strip_scripts(page_inst.content)
+          # content: strip_scripts(page_inst.content)
         )
         close_response this_inst, status, response
         page_inst.close()
