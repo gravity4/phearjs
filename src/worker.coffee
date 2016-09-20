@@ -105,7 +105,7 @@ fetch_url = (url, response, this_inst, parse_delay, request_headers, get_request
     final_url = targetUrl
 
   page_inst.onNavigationRequested = (targetUrl, type, willNavigate, main)  ->
-    if targetUrl is not url and targetUrl is not 'about:blank' and willNavigate is true and main is true
+    if targetUrl not in [url, 'about:blank'] and willNavigate is true and main is true
       logger.info this_inst, "Redirected to #{targetUrl} via page.onNavigationRequested"
       redirects.push(targetUrl)
       final_url = targetUrl
