@@ -5,6 +5,11 @@
 #  When a request is made it fetches and parses the requested URL.
 #
 
+Array::unique = ->
+  output = {}
+  output[@[key]] = @[key] for key in [0...@length]
+  value for key, value of output
+
 # go! go! go!
 run_server = ->
 
@@ -192,7 +197,7 @@ fetch_url = (url, response, this_inst, parse_delay, request_headers, get_request
           success: true
           input_url: url
           final_url: final_url
-          redirects: redirects
+          redirects: redirects.unique()
           request_headers: request_headers
           response_headers: fetch_url_headers
           requests: requests if get_requests in ["true", "1"]
