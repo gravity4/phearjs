@@ -149,7 +149,7 @@ handle_request = (req, res) ->
         # Make the request to the worker and store in cache if status is 200 (don't store bad requests)
         request options, (error, response, body) ->
           try
-            if response.statusCode == 200
+            if response.statusCode == 200 and config.cache_ttl > 0
               memcached.set cache_key, body, config.cache_ttl, ->
                 logger.info "phear-#{thread_number}", "Stored #{req.query.fetch_url} in cache"
 
