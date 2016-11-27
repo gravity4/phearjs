@@ -1,10 +1,10 @@
 [
   {
     "development": {
-      "workers": 1,
+      "workers": 4,
       "base_port": 9100,
-      "cache_ttl": 604800,
-      "global_timeout": 40000,
+      "cache_ttl": 30,
+      "global_timeout": 5000,
       "status_page": {
         "enabled": true,
         "name": "user",
@@ -14,13 +14,13 @@
         "servers": ["memcached:11211"],
         "options": {
           "retries": 0,
-          "timeout": 1800
+          "timeout": 2000
         }
       },
       "worker": {
         "port": 8183,
-        "timeout": 10000,
-        "parse_delay": 5000,
+        "timeout": 5000,
+        "parse_delay": 3000,
         "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36",
         "max_connections": 10,
         "get_requests": true,

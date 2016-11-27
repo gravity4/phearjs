@@ -17,3 +17,4 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/local/rvm/archives/*
 WORKDIR /phearjs
 CMD ["node", "/phearjs/phear.js"]
+COPY config/ /phearjs/config/
