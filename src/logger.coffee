@@ -13,8 +13,9 @@ class Logger
     @port = port
 
   info: (this_inst, message) ->
-    id = @space_pad_id(this_inst, 20)
-    console.log "#{@date_string()} [#{id}] #{message}"
+    #id = @space_pad_id(this_inst, 20)
+    #console.log "#{@date_string()} [#{id}] #{message}"
+    return
 
   error: (this_inst, message) ->
     id = @space_pad_id(this_inst, 20)
