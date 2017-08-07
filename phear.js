@@ -145,7 +145,7 @@
             } catch (error2) {
               err = error2;
               res.statusCode = 500;
-              close_response("phear-" + thread_number, "Request failed due to an internal server error.", res);
+              close_response("phear-" + thread_number, "Request failed due to an internal server error (" + (err.toString()) + ").", res);
               if ((ref1 = worker.process.status) !== "stopping" && ref1 !== "stopped") {
                 logger.info("phear-" + thread_number, "Trying to restart worker with PID " + worker.process.pid + "...");
                 worker.process.stop(function() {

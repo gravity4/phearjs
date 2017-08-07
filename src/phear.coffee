@@ -157,7 +157,7 @@ handle_request = (req, res) ->
             respond(response.statusCode, body)
           catch err
             res.statusCode = 500
-            close_response("phear-#{thread_number}", "Request failed due to an internal server error.", res)
+            close_response("phear-#{thread_number}", "Request failed due to an internal server error (#{err.toString()}).", res)
 
             if worker.process.status not in ["stopping", "stopped"]
               logger.info "phear-#{thread_number}", "Trying to restart worker with PID #{worker.process.pid}..."
