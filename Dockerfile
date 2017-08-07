@@ -7,6 +7,7 @@ COPY package.json /phearjs/
 COPY phear.js /phearjs/
 COPY src/ /phearjs/src/
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+  && apt-get update \
   && apt-get install -y --no-install-recommends nodejs build-essential \
   && cd /phearjs \
   && npm install \

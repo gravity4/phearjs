@@ -13,7 +13,7 @@ PhearJS was built and tested on Ubuntu 15.04, but should work on most Linux dist
 ### Request
 
 ```bash
-curl -X GET "http://localhost:8100? \
+curl -X GET "http://localhost:9100? \
   fetch_url=http%3A%2F%2Fsuch-website.com"
 ```
 
@@ -47,7 +47,7 @@ Check out [these instructions](INSTALLATION.md).
 
 Requests can be made to:
 
-`http://localhost:8100?fetch_url=http%3A%2F%2Fdomain.com`
+`http://localhost:9100?fetch_url=http%3A%2F%2Fdomain.com`
 
 PhearJS accepts the following parameters:
 
@@ -84,7 +84,7 @@ PhearJS accepts the following parameters:
 
 ### Status page
 
-When PhearJS is running you can find a status page at `http://localhost:8100/status`. It
+When PhearJS is running you can find a status page at `http://localhost:9100/status`. It
 shows some stats about the running process. In production this status page should be enabled
 via `config.json` and is password-protected through Basic Auth.
 
