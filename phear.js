@@ -136,7 +136,7 @@
           return request(options, function(error, response, body) {
             var err, error2, ref1;
             try {
-              if (response.statusCode === 200) {
+              if (response.statusCode === 200 && config.cache_ttl > 0) {
                 memcached.set(cache_key, body, config.cache_ttl, function() {
                   return logger.info("phear-" + thread_number, "Stored " + req.query.fetch_url + " in cache");
                 });

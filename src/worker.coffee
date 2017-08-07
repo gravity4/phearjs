@@ -61,7 +61,7 @@ run_server = ->
     request_headers = {}
     if request_url.query.headers?
       try
-        request_headers = JSON.parse(request_url.query.headers)
+        request_headers = JSON.parse(decodeURIComponent(request_url.query.headers))
       catch
         response.statusCode = 400
         return close_response(this_inst, "Malformed request headers.", response)
@@ -163,7 +163,7 @@ fetch_url = (url, response, this_inst, parse_delay, request_headers, get_request
     unless status is "success"
       logger.info this_inst, "Failed " + url
       response.statusCode = 500
-      close_response this_inst, "Failed to fetch this URL.", response
+      close_response this_inst, "Failed to fetch this URL. Status: #{status}.", response
       page_inst.close()
       cookie_inst.close()
     else
