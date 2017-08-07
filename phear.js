@@ -136,16 +136,23 @@
           return request(options, function(error, response, body) {
             var err, error2, ref1;
             try {
-              if (response.statusCode === 200 && config.cache_ttl > 0) {
+              if (error != null) {
+                throw error;
+              }
+              if ((response != null) && response.statusCode === 200 && config.cache_ttl > 0) {
                 memcached.set(cache_key, body, config.cache_ttl, function() {
                   return logger.info("phear-" + thread_number, "Stored " + req.query.fetch_url + " in cache");
                 });
               }
-              return respond(response.statusCode, body);
+              if (response != null) {
+                return respond(response.statusCode, body);
+              } else {
+                throw new Error("No response object.");
+              }
             } catch (error2) {
               err = error2;
               res.statusCode = 500;
-              close_response("phear-" + thread_number, "Request failed due to an internal server error (" + (err.toString()) + ").", res);
+              close_response("phear-" + thread_number, "Request failed due to an internal server error (" + (err.toString()) + "). \n " + err.stack, res);
               if ((ref1 = worker.process.status) !== "stopping" && ref1 !== "stopped") {
                 logger.info("phear-" + thread_number, "Trying to restart worker with PID " + worker.process.pid + "...");
                 worker.process.stop(function() {

@@ -149,15 +149,23 @@ handle_request = (req, res) ->
         # Make the request to the worker and store in cache if status is 200 (don't store bad requests)
         request options, (error, response, body) ->
           try
-            if response.statusCode == 200 and config.cache_ttl > 0
+
+            if error?
+              throw error
+
+            if response? and response.statusCode == 200 and config.cache_ttl > 0
               memcached.set cache_key, body, config.cache_ttl, ->
                 logger.info "phear-#{thread_number}", "Stored #{req.query.fetch_url} in cache"
 
-            # Return to requester!
-            respond(response.statusCode, body)
+            if response?
+              # Return to requester!
+              respond(response.statusCode, body)
+            else
+              throw new Error("No response object.")
+
           catch err
             res.statusCode = 500
-            close_response("phear-#{thread_number}", "Request failed due to an internal server error (#{err.toString()}).", res)
+            close_response("phear-#{thread_number}", "Request failed due to an internal server error (#{err.toString()}). \n #{err.stack}", res)
 
             if worker.process.status not in ["stopping", "stopped"]
               logger.info "phear-#{thread_number}", "Trying to restart worker with PID #{worker.process.pid}..."
