@@ -8,15 +8,6 @@ ENV NODE_ENV production
 
 COPY . /phearjs/
 
-#COPY assets/ /phearjs/assets/
-#COPY config/ /phearjs/config/
-#COPY gulpfile.js /phearjs/
-#COPY lib/ /phearjs/lib/
-#COPY package.json /phearjs/
-#COPY phear.js /phearjs/
-#COPY src/ /phearjs/src/
-#COPY config/ /phearjs/config/
-
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
   && apt-get update \
   && apt-get install -y --no-install-recommends nodejs build-essential \
