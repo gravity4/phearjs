@@ -1,1 +1,15 @@
 Dockerfile
+.dockerignore
+.idea
+.git
+.gitignore
+node_modules
+phantomjs-build
+src
+buildonly.sh
+INSTALLATION.md
+BUILD.md
+gulpfile.js
+CHANGELOG.md
+README.md
+build.sh
