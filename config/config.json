@@ -4,7 +4,7 @@
       "workers": 4,
       "base_port": 9100,
       "cache_ttl": 30,
-      "global_timeout": 10000,
+      "global_timeout": 30000,
       "status_page": {
         "enabled": true,
         "name": "user",
