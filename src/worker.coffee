@@ -203,7 +203,7 @@ fetch_url = (url, response, this_inst, parse_delay, request_headers, get_request
           requests: requests if get_requests in ["true", "1"]
           cookies: cookie_inst.cookies if get_cookies in ["true", "1"]
           had_js_errors: had_js_errors
-          # content: strip_scripts(page_inst.content)
+          content: strip_scripts(page_inst.content)
         )
         close_response this_inst, status, response
         page_inst.close()
